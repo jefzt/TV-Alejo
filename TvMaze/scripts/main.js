@@ -35,3 +35,26 @@ document.getElementById("prevBtn").addEventListener("click", () => {
         paginate();
     }
 });
+
+async function doSearch(query) {
+    if (!query) return;
+    const data = await searchShows(query);
+    addSearchHistory(query);
+    state.filtered = data;
+    state.page = 1;
+    paginate();
+    renderSearchHistory();
+}
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+    document.querySelector(".search-box").classList.toggle("active");
+    document.getElementById("searchInput").focus();
+});
+
+document.getElementById("searchInput").addEventListener("keydown", async (e) => {
+    if (e.key === "Enter") {
+        const query = e.target.value.trim();
+        await doSearch(query);
+    }
+});
+
