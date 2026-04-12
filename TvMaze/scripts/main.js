@@ -58,3 +58,75 @@ document.getElementById("searchInput").addEventListener("keydown", async (e) => 
     }
 });
 
+document.getElementById("searchInput").addEventListener("keyup", async (e) => {
+    if (e.key === "Enter") {
+        const query = e.target.value.trim();
+        await doSearch(query);
+    }
+});
+
+document.getElementById("perPage").addEventListener("change", (e) => {
+    state.perPage = parseInt(e.target.value);
+    savePerPage(state.perPage);
+    state.page = 1;
+    paginate();
+});
+
+
+document.getElementById("filterBtn").addEventListener("click", () => {
+    document.getElementById("genreMenu").classList.toggle("active");
+});
+
+document.querySelectorAll(".genre-option").forEach(option => {
+    option.addEventListener("click", () => {
+        document.querySelectorAll(".genre-option").forEach(o => o.classList.remove("active"));
+        option.classList.add("active");
+
+        const genre = option.dataset.genre;
+        if (genre === "All") {
+            state.filtered = state.shows;
+        } else {
+            state.filtered = state.shows.filter(show =>
+                show.genres.includes(genre)
+            );
+        }
+        state.page = 1;
+        paginate();
+        document.getElementById("genreMenu").classList.remove("active");
+    });
+});
+
+function renderSearchHistory() {
+    const history = getSearchHistory();
+    const container = document.getElementById("searchHistory");
+
+    if (!container) return;
+
+    if (history.length === 0) {
+        container.innerHTML = "";
+        return;
+    }
+
+    container.innerHTML = `
+        <p class="history-title">Búsquedas recientes:</p>
+        ${history.map(q => `
+            <span class="history-item">
+                <span onclick="repeatSearch('${q}')">${q}</span>
+                <span class="history-remove" onclick="removeHistory('${q}')">✕</span>
+            </span>
+        `).join("")}
+    `;
+}
+
+window.repeatSearch = async (query) => {
+    document.getElementById("searchInput").value = query;
+    await doSearch(query);
+};
+
+window.removeHistory = (query) => {
+    removeSearchHistory(query);
+    renderSearchHistory();
+};
+
+loadInitial();
+renderSearchHistory();
