@@ -12,3 +12,26 @@ async function loadInitial() {
     state.filtered = data;
     paginate();
 }
+
+function paginate() {
+    const start = (state.page - 1) * state.perPage;
+    const end = start + state.perPage;
+
+    const data = state.filtered.slice(start, end);
+    renderShows(data);
+
+    document.getElementById("pageInfo").innerText = `Página ${state.page}`;
+}
+
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+    state.page++;
+    paginate();
+});
+
+document.getElementById("prevBtn").addEventListener("click", () => {
+    if (state.page > 1) {
+        state.page--;
+        paginate();
+    }
+});
