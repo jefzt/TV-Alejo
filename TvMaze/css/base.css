@@ -1,5 +1,4 @@
-/* ── BASE ── */
-/* RESET */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +12,7 @@ body {
     padding-left: 60px;
 }
 
-/* NAVBAR */
+
 .navbar {
     display: flex;
     justify-content: space-between;
