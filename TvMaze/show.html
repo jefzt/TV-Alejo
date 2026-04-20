@@ -10,8 +10,7 @@
     <style>body { overflow: hidden; padding-left: 60px; }</style>
 </head>
 <body>
-
-    <div class="sidebar">
+<div class="sidebar">
         <a href="index.html" class="icon">
             <i class="fas fa-arrow-left"></i>
         </a>
@@ -23,20 +22,16 @@
         </a>
         <div class="sidebar-spacer"></div>
     </div>
-
     <div class="show-hero" id="showHero">
-
         <div class="show-poster">
             <img id="posterImg" src="" alt="Poster">
             <button class="fav-btn" id="favBtn">
                 <i class="fas fa-star"></i> Agregar a favoritos
             </button>
         </div>
-
         <div class="show-info">
             <h1 id="showName"></h1>
             <p class="show-network" id="showNetwork"></p>
-
             <div class="meta-row">
                 <div class="rating-circle" id="ratingCircle">–</div>
                 <div>
@@ -46,9 +41,7 @@
                 <span class="badge hd">HD</span>
                 <span class="badge" id="yearBadge"></span>
             </div>
-
             <p class="show-summary" id="showSummary"></p>
-
             <div class="show-details">
                 <p><b>Género:</b> <span id="showGenres"></span></p>
                 <p><b>Idioma:</b> <span id="showLanguage"></span></p>
@@ -57,9 +50,7 @@
                 <p><b>Red:</b> <span id="showNetworkDetail"></span></p>
             </div>
         </div>
-
     </div>
-
     <script type="module">
         import { getShowById } from "./scripts/service.js";
         import { addFavorite } from "./scripts/storage.js";
@@ -70,18 +61,13 @@
         async function loadShow() {
             const show = await getShowById(id);
 
-            // Fondo difuminado
             const bg = show.image?.original || show.image?.medium || '';
             document.getElementById("showHero").style.setProperty('--bg-image', `url(${bg})`);
 
-            // Poster
             document.getElementById("posterImg").src = show.image?.medium || '';
-
-            // Título y red
             document.getElementById("showName").textContent = show.name;
             document.getElementById("showNetwork").textContent = show.network?.name || '';
 
-            // Rating
             const rating = show.rating?.average;
             if (rating) {
                 const pct = Math.round((rating / 10) * 100);
@@ -91,22 +77,18 @@
                 document.getElementById("ratingText").textContent = `(${rating} / 10)`;
             }
 
-            // Año
             const year = show.premiered ? show.premiered.split('-')[0] : '';
             document.getElementById("yearBadge").textContent = year;
 
-            // Descripción
             const summary = show.summary ? show.summary.replace(/<[^>]*>/g, '') : 'Sin descripción.';
             document.getElementById("showSummary").textContent = summary;
 
-            // Detalles
             document.getElementById("showGenres").textContent = show.genres?.join(", ") || '–';
             document.getElementById("showLanguage").textContent = show.language || '–';
             document.getElementById("showStatus").textContent = show.status || '–';
             document.getElementById("showPremiered").textContent = show.premiered || '–';
             document.getElementById("showNetworkDetail").textContent = show.network?.name || show.webChannel?.name || '–';
 
-            // Botón favorito
             document.getElementById("favBtn").addEventListener("click", () => {
                 addFavorite(show);
                 alert(`"${show.name}" agregado a favoritos ⭐`);
@@ -115,6 +97,5 @@
 
         loadShow();
     </script>
-
 </body>
 </html>
