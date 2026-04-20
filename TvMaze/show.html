@@ -51,5 +51,51 @@
             </div>
         </div>
     </div>
+    <script type="module">
+        import { getShowById } from "./scripts/service.js";
+        import { addFavorite } from "./scripts/storage.js";
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        async function loadShow() {
+            const show = await getShowById(id);
+
+            const bg = show.image?.original || show.image?.medium || '';
+            document.getElementById("showHero").style.setProperty('--bg-image', `url(${bg})`);
+
+            document.getElementById("posterImg").src = show.image?.medium || '';
+            document.getElementById("showName").textContent = show.name;
+            document.getElementById("showNetwork").textContent = show.network?.name || '';
+
+            const rating = show.rating?.average;
+            if (rating) {
+                const pct = Math.round((rating / 10) * 100);
+                document.getElementById("ratingCircle").textContent = pct + '%';
+                const stars = Math.round(rating / 2);
+                document.getElementById("stars").innerHTML = '★'.repeat(stars) + '☆'.repeat(5 - stars);
+                document.getElementById("ratingText").textContent = `(${rating} / 10)`;
+            }
+
+            const year = show.premiered ? show.premiered.split('-')[0] : '';
+            document.getElementById("yearBadge").textContent = year;
+
+            const summary = show.summary ? show.summary.replace(/<[^>]*>/g, '') : 'Sin descripción.';
+            document.getElementById("showSummary").textContent = summary;
+
+            document.getElementById("showGenres").textContent = show.genres?.join(", ") || '–';
+            document.getElementById("showLanguage").textContent = show.language || '–';
+            document.getElementById("showStatus").textContent = show.status || '–';
+            document.getElementById("showPremiered").textContent = show.premiered || '–';
+            document.getElementById("showNetworkDetail").textContent = show.network?.name || show.webChannel?.name || '–';
+
+            document.getElementById("favBtn").addEventListener("click", () => {
+                addFavorite(show);
+                alert(`"${show.name}" agregado a favoritos ⭐`);
+            });
+        }
+
+        loadShow();
+    </script>
 </body>
 </html>
