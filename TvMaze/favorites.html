@@ -25,6 +25,20 @@
     </div>
   <!-- CONTENIDO -->
     <main id="favoritesList" class="favs-grid"></main>
+    <script type="module">
+        import { getFavorites, saveFavorites } from "./scripts/storage.js";
+
+        function renderFavs() {
+            const favs = getFavorites();
+            const container = document.getElementById("favoritesList");
+
+            if (favs.length === 0) {
+                container.innerHTML = `<div class="empty-favs"><i class="fas fa-star"></i>No hay favoritos aún</div>`;
+                return;
+            }
+        }
+    </script>
+
 
 </body>
 </html>
