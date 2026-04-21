@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,13 @@
 
 <body>
 
-<header class="navbar">
-    <div class="left">
-        <div class="logo">
-            TVABEJA <img src="img/logo.png" alt="logo" style="height: 30px;">
+    <header class="navbar">
+        <div class="left">
+            <div class="logo">
+                TVABEJA <img src="img/logo.png" alt="logo" style="height: 30px;">
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <div class="sidebar">
         <button id="searchBtn" class="icon">
@@ -47,3 +48,29 @@
         <span class="genre-option" data-genre="Action">Action</span>
         <span class="genre-option" data-genre="Crime">Crime</span>
     </div>
+
+    <div class="search-box" id="searchBoxContainer">
+        <input type="text" id="searchInput" placeholder="Buscar...">
+    </div>
+
+    <div id="searchHistory" class="search-history"></div>
+
+    <main id="app"></main>
+
+    <section style="text-align:center;">
+        <button id="prevBtn">&#8249;</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn">&#8250;</button>
+
+        <select id="perPage">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+        </select>
+    </section>
+
+    <script type="module" src="scripts/main.js"></script>
+
+</body>
+
+</html>
