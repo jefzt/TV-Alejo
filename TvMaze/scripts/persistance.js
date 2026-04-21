@@ -4,4 +4,5 @@ export function save(key, value) {
 
 export function load(key, fallback = null) {
     const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : fallback;
 }
