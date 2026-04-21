@@ -10,6 +10,7 @@
 </head>
 <body>
     <!-- Página de favoritos -->
+
      <!-- SIDEBAR -->
     <div class="sidebar">
         <a href="index.html" class="icon">
@@ -23,9 +24,11 @@
         </a>
         <div class="sidebar-spacer"></div>
     </div>
+
   <!-- CONTENIDO -->
     <main id="favoritesList" class="favs-grid"></main>
-    <script type="module">
+
+<script type="module">
         import { getFavorites, saveFavorites } from "./scripts/storage.js";
 
         function renderFavs() {
@@ -36,9 +39,31 @@
                 container.innerHTML = `<div class="empty-favs"><i class="fas fa-star"></i>No hay favoritos aún</div>`;
                 return;
             }
-        }
-    </script>
 
+            container.innerHTML = favs.map(show => `
+                <div class="card">
+                    <img src="${show.image?.medium || ''}" alt="${show.name}">
+                    <h3>${show.name}</h3>
+                    <p>${show.genres?.join(", ") || ''}</p>
+                    <p>⭐ ${show.rating?.average || "N/A"}</p>
+                    <a href="show.html?id=${show.id}">
+                        <button>Ver detalles</button>
+                    </a>
+                    <button onclick="removeFav(${show.id})">
+                        🗑 Eliminar
+                    </button>
+                </div>
+            `).join("");
+        }
+
+        window.removeFav = (id) => {
+            const favs = getFavorites().filter(f => f.id !== id);
+            saveFavorites(favs);
+            renderFavs();
+        };
+
+        renderFavs();
+    </script>
 
 </body>
 </html>
