@@ -3,6 +3,7 @@ import { renderShows } from "./ui.js";
 import { state } from "./state.js";
 import { addSearchHistory, getSearchHistory, removeSearchHistory, getPerPage, savePerPage } from "./storage.js";
 
+// arreglo de main corrigiendo quien lo subio
 state.perPage = getPerPage();
 document.getElementById("perPage").value = state.perPage;
 
