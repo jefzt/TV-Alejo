@@ -29,3 +29,17 @@ export function addSearchHistory(query) {
     history = history.slice(0, 10);
     save("searchHistory", history);
 }
+export function removeSearchHistory(query) {
+    let history = getSearchHistory();
+    history = history.filter(h => h.toLowerCase() !== query.toLowerCase());
+    save("searchHistory", history);
+}
+
+// ── PER PAGE ──
+export function getPerPage() {
+    return parseInt(load("perPage")) || 10;
+}
+
+export function savePerPage(value) {
+    save("perPage", value);
+}
