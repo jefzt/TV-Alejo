@@ -8,3 +8,42 @@
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
+<body>
+
+<header class="navbar">
+    <div class="left">
+        <div class="logo">
+            TVABEJA <img src="img/logo.png" alt="logo" style="height: 30px;">
+        </div>
+    </div>
+</header>
+
+    <div class="sidebar">
+        <button id="searchBtn" class="icon">
+            <i class="fas fa-search"></i>
+        </button>
+
+        <a href="index.html" class="icon active">
+            <i class="fas fa-home"></i>
+        </a>
+
+        <a href="favorites.html" class="icon">
+            <i class="fas fa-star"></i>
+        </a>
+
+        <button id="filterBtn" class="icon">
+            <i class="fas fa-filter"></i>
+        </button>
+
+        <div class="sidebar-spacer"></div>
+    </div>
+
+    <div class="genre-menu" id="genreMenu">
+        <p class="genre-title">Géneros</p>
+        <span class="genre-option active" data-genre="All">Todos</span>
+        <span class="genre-option" data-genre="Drama">Drama</span>
+        <span class="genre-option" data-genre="Comedy">Comedy</span>
+        <span class="genre-option" data-genre="Action">Action</span>
+        <span class="genre-option" data-genre="Crime">Crime</span>
+    </div>
